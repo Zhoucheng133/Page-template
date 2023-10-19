@@ -39,7 +39,8 @@ var app = new Vue({
   methods: {
     toTop(){
       window.scrollTo({
-        top: 0,
+        top: document.body.clientHeight,
+        // 如果是滚动到底部，将0修改为document.body.clientHeight
         behavior: "smooth"
       });
     }
