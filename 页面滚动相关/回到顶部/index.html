@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>回到顶部</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="content">
+      -----这里是顶部-----
+      <div v-for="index in 200" :key="index">
+        测试内容
+      </div>
+    </div>
+
+    <div class="topButton" v-show="showButton" @click="toTop">
+      <svg width="30" height="30" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 6V42" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 18L24 6L36 18" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+</body>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    showButton: false,
+  },
+  mounted() {
+    document.onscroll=()=>{
+      if(scrollTop = window.pageYOffset==0){
+        this.showButton=false;
+      }else{
+        this.showButton=true;
+      }
+    }
+  },
+  methods: {
+    toTop(){
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+  },
+})
+</script>
+<style>
+.topButton:hover{
+  cursor: pointer;
+}
+.topButton{
+  position: fixed;
+  right: 50px;
+  bottom: 200px;
+  height: 80px;
+  width: 80px;
+  background-color: blue;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
+</html>
