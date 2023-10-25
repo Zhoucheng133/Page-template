@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>回到顶部</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="content" ref="content" @scroll="scrollController">
+      <div class="view1">这是内容1</div>
+      <div class="view2">这是内容2</div>
+      <div class="view3">这是内容3</div>
+    </div>
+  </div>
+</body>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data() {
+    return {
+      tmpPosition: 0,
+      scrollHandler: false,
+
+      nowView: 0,
+
+      pageDelta: 0,
+    }
+  },
+  methods: {
+    pageChange(){
+      this.$refs.content.style.transform="translateY(calc(-"+this.nowView*100+"vh))";
+    },
+    scrollController(e){
+      if(!this.scrollHandler){
+        if(Math.abs(e.deltaY)<10){
+          return;
+        }
+        this.pageDelta+=e.deltaY/Math.abs(e.deltaY);
+        if(this.pageDelta<0){
+          if(this.nowView>0){
+            this.nowView-=1;
+            this.pageChange();
+          }
+        }else{
+          if(this.nowView<2){
+            this.nowView+=1;
+            this.pageChange();
+          }
+        }
+        this.pageDelta=0;
+        this.scrollHandler=true;
+
+        setTimeout(() => {
+          this.scrollHandler=false;
+        }, 500);
+      }
+    }
+  },
+  mounted() {
+    window.addEventListener('wheel', this.scrollController)
+  },
+})
+</script>
+
+<style>
+/* 注意页面本身的margin */
+body{
+  margin: 0;
+}
+.content{
+  position: fixed;
+  transition: all ease-in-out .5s;
+}
+.view1, .view2, .view3{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 30px;
+}
+.view1{
+  background-color: skyblue;
+}
+.view2{
+  background-color: orange;
+}
+.view3{
+  background-color: green;
+}
+</style>
+</html>
