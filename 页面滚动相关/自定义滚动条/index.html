@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>回到顶部</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="content">
+      -----这里是顶部-----
+      <div v-for="index in 200" :key="index">
+        测试内容
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+var app = new Vue({
+  el: '#app',
+})
+</script>
+
+<style>
+/* 滚动条轨道 */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #0074E4 10%, #fff 10%, #fff 20%, #0074E4 20%, #0074E4 30%, #fff 30%, #fff 40%, #0074E4 40%, #0074E4 50%, #fff 50%, #fff 60%, #0074E4 60%, #0074E4 70%, #fff 70%, #fff 80%, #0074E4 80%, #0074E4 90%, #fff 90%, #fff 100%);
+  border-radius: 6px;
+}
+
+/* 滚动条轨道背景 */
+::-webkit-scrollbar-track {
+  background-color: red;
+}
+</style>
+</html>
