@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>回到顶部</title>
+  <title>段落式滚动</title>
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </head>
 <body>
@@ -13,6 +13,13 @@
       <div class="view2">这是内容2</div>
       <div class="view3">这是内容3</div>
     </div>
+    
+    <div class="index">
+      <div :class="nowView==0?'indexItem_selected':'indexItem'"></div>
+      <div :class="nowView==1?'indexItem_selected':'indexItem'" style="margin-top: 10px;"></div>
+      <div :class="nowView==2?'indexItem_selected':'indexItem'" style="margin-top: 10px;"></div>
+    </div>
+
   </div>
 </body>
 
@@ -66,6 +73,32 @@ var app = new Vue({
 </script>
 
 <style>
+.indexItem, .indexItem_selected{
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  transition: all ease-in-out .3s;
+}
+.indexItem_selected{
+  background-color: black;
+}
+.indexItem{
+  background-color: lightgrey;
+}
+.index{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  height: 100px;
+  width: 30px;
+  right: 10px;
+  background-color: white;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 15px;
+}
 /* 注意页面本身的margin */
 body{
   margin: 0;
