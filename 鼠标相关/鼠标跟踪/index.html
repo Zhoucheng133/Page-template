@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>鼠标样式</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div :class=" mouseIn ? 'border' : 'border_out'" ref="cursorBorder" v-if="mouseMoved"></div>
+  </div>
+</body>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data() {
+    return {
+      mouseMoved: false,
+
+      mouseIn: true,
+    }
+  },
+  mounted() {
+    var that=this;
+    document.addEventListener('mousemove', function(event) {
+      var mouseX = event.clientX; // 获取鼠标相对于浏览器窗口左上角的X坐标
+      var mouseY = event.clientY; // 获取鼠标相对于浏览器窗口左上角的Y坐标
+      that.mouseMoved=true;
+      that.mouseIn=true;
+      setTimeout(() => {
+        that.$refs.cursorBorder.style.left=(event.clientX-23)+'px';
+        that.$refs.cursorBorder.style.top=(event.clientY-23)+'px';
+      }, 150);
+    });
+    document.addEventListener("mouseleave", function(event) {
+      that.$refs.cursorBorder.style.opacity=0;
+      that.mouseIn=false;
+    });
+  },
+})
+</script>
+
+<style>
+@keyframes FadeOut {
+  0%{
+    opacity: .6;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+@keyframes FadeIn {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: .6;
+  }
+}
+.border, .border_out{
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  background-color: orange;
+  border-radius: 25px;
+}
+.border{
+  animation: FadeIn .5s linear forwards;
+}
+.border_out{
+  animation: FadeOut .5s linear forwards;
+}
+body {
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  cursor: url("./cursor.png"), auto;
+}
+</style>
+</html>
