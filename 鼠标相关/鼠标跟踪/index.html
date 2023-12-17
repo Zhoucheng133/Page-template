@@ -38,6 +38,16 @@ var app = new Vue({
       that.$refs.cursorBorder.style.opacity=0;
       that.mouseIn=false;
     });
+    document.addEventListener("mousedown", function(event){
+      that.$refs.cursorBorder.style.width='40px';
+      that.$refs.cursorBorder.style.height='40px';
+      that.$refs.cursorBorder.style.transform='translate(5px, 5px)';
+    });
+    document.addEventListener("mouseup", function(event){
+      that.$refs.cursorBorder.style.width='50px';
+      that.$refs.cursorBorder.style.height='50px';
+      that.$refs.cursorBorder.style.transform='translate(0px, 0px)';
+    });
   },
 })
 </script>
@@ -68,6 +78,7 @@ var app = new Vue({
 }
 .border{
   animation: FadeIn .5s linear forwards;
+  transition: width ease-in-out .2s, height ease-in-out .2s, transform ease-in-out .2s;
 }
 .border_out{
   animation: FadeOut .5s linear forwards;
